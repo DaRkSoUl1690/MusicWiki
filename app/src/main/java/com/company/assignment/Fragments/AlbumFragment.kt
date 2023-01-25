@@ -7,17 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.company.assignment.activities.SecondScreen
 import com.company.assignment.adapters.AlbumAdapter
 import com.company.assignment.databinding.FragmentAlbumBinding
 import com.company.assignment.models.Album.AlbumModel
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.math.log
 
 
 class AlbumFragment : Fragment() {
@@ -26,8 +25,6 @@ class AlbumFragment : Fragment() {
     private val binding
         get() = _binding
 
-    //    var imageList: ArrayList<Image> = ArrayList()
-//    var artistList: ArrayList<Artist> = ArrayList()
     var albumList: ArrayList<AlbumModel> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +36,11 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
-        callAlbumTagFunction("rock")
+        
+        val activity: SecondScreen? = activity as SecondScreen?
+        val myDataFromActivity: String = activity!!.getMyData()
+        callAlbumTagFunction(myDataFromActivity)
+        
         return binding!!.root
     }
 
@@ -49,7 +50,7 @@ class AlbumFragment : Fragment() {
         return when (screenLayout) {
             Configuration.SCREENLAYOUT_SIZE_SMALL -> "small"
             Configuration.SCREENLAYOUT_SIZE_NORMAL -> "large"
-            Configuration.SCREENLAYOUT_SIZE_LARGE -> "large"
+            Configuration.SCREENLAYOUT_SIZE_LARGE -> "extralarge"
             4 -> "extralarge"
             else -> "undefined"
         }
@@ -79,7 +80,7 @@ class AlbumFragment : Fragment() {
                     //Image Url ::
                     val imageJson = initialName.getJSONArray("image")
                     var imageUrl = ""
-                   
+
                     for (index in 0.until(imageJson.length())) {
 
                         if (imageJson.getJSONObject(index)
@@ -88,7 +89,7 @@ class AlbumFragment : Fragment() {
                             imageUrl = imageJson.getJSONObject(index).getString("#text")
                             break;
                         }
-                     
+
                     }
                     albumList.add(AlbumModel(albumName, artistName, imageUrl))
 

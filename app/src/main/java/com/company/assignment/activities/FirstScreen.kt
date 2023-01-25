@@ -2,13 +2,8 @@ package com.company.assignment.activities
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.ArrayAdapter
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.company.assignment.R
@@ -26,7 +21,7 @@ class FirstScreen : AppCompatActivity() {
 
     var genreNameList = ArrayList<String>()
     var genreNameList2 = ArrayList<String>()
-    var show: Boolean = false
+    var show: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,7 +40,6 @@ class FirstScreen : AppCompatActivity() {
                     genreNameList.add(
                         jsonArr.getJSONObject(nameElement).getString("name").toString()
                     )
-                    
 
                 }
                 for (nameElement in 0.until(genreNameList.size)) {
@@ -55,19 +49,24 @@ class FirstScreen : AppCompatActivity() {
 
                     count++
                 }
+                val firsAdapter = FirstScreenAdapter(
+                    genreNameList2
+                )
+                binding!!.coverRv.adapter = firsAdapter
+
                 binding!!.imageView.setOnClickListener {
                     if (show) {
                         val cartAdapter = FirstScreenAdapter(
                             genreNameList
                         )
-                        binding!!.imageView.setImageResource(R.drawable.baseline_arrow_circle_up_24)
+                        binding!!.imageView.setImageResource(R.drawable.baseline_arrow_circle_down_24)
                         show = false
                         binding!!.coverRv.adapter = cartAdapter
                     } else {
                         val cartAdapter = FirstScreenAdapter(
                             genreNameList2
                         )
-                        binding!!.imageView.setImageResource(R.drawable.baseline_arrow_circle_down_24)
+                        binding!!.imageView.setImageResource(R.drawable.baseline_arrow_circle_up_24)
                         show = true
                         binding!!.coverRv.adapter = cartAdapter
                     }

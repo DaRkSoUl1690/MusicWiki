@@ -1,7 +1,5 @@
 package com.company.assignment.activities
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +15,8 @@ import org.json.JSONObject
 class SecondScreen : AppCompatActivity() {
 
     private var binding: ActivitySecondScreenBinding? = null
-    private lateinit var tagName: String
-    
+    lateinit var tagName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +32,8 @@ class SecondScreen : AppCompatActivity() {
         tagName = intent.getStringExtra("nameTag").toString()
         callSummaryTagFunction(tagName)
 
+        
+
         TabLayoutMediator(
             binding!!.tabLayout, binding!!.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
@@ -47,6 +47,10 @@ class SecondScreen : AppCompatActivity() {
                 tab.text = "TRACKS"
             }
         }.attach()
+    }
+
+    fun getMyData(): String {
+        return tagName
     }
 
     private fun callSummaryTagFunction(nameTag: String) {
@@ -75,5 +79,5 @@ class SecondScreen : AppCompatActivity() {
         ) { error -> Log.d("error", error.toString()) }
         requestQ.add(request)
     }
-  
+
 }
