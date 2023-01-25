@@ -36,11 +36,11 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
-        
+
         val activity: SecondScreen? = activity as SecondScreen?
         val myDataFromActivity: String = activity!!.getMyData()
         callAlbumTagFunction(myDataFromActivity)
-        
+
         return binding!!.root
     }
 
@@ -96,7 +96,7 @@ class AlbumFragment : Fragment() {
 
                 }
 
-                val adapter = AlbumAdapter(albumList)
+                val adapter = AlbumAdapter(albumList, 0)
                 binding!!.albumrv.adapter = adapter
             }
         ) { error -> Log.d("error", error.toString()) }

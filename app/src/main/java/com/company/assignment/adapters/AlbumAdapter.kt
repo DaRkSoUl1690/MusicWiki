@@ -7,7 +7,8 @@ import com.company.assignment.databinding.TablayoutviewholderBinding
 import com.company.assignment.models.Album.AlbumModel
 
 class AlbumAdapter(
-    private var arrayList: ArrayList<AlbumModel>
+    private var arrayList: ArrayList<AlbumModel>,
+    private var tab: Int 
 ) : RecyclerView
 .Adapter<TabAdapterViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabAdapterViewHolder {
@@ -26,10 +27,23 @@ class AlbumAdapter(
     }
 
     override fun onBindViewHolder(holder: TabAdapterViewHolder, position: Int) {
-        holder.initializeUIComponent(
-            arrayList[position].imageUrl,
-            arrayList[position].albumName,
-            arrayList[position].artistName
-        )
+        if(tab == 0 || tab==2) {
+            holder.initializeUIComponent(
+                arrayList[position].imageUrl,
+                arrayList[position].albumName,
+                arrayList[position].artistName
+            )
+        }
+        else if(tab==1)
+        {
+            holder.initializeUIComponent(
+                arrayList[position].imageUrl,
+                "",
+                arrayList[position].artistName
+            )
+        }
+        else {
+            
+        }
     }
 }
