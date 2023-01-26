@@ -39,7 +39,7 @@ I want to express my sincere appreciation to GreedyGame for their task. As I wor
 
 ## Screenshots
 
-<img src="Screenshots/ss1.jpg" height="200"/> <img src="Screenshots/ss2.jpg" height="200"/><img src="Screenshots/ss3.jpg" height="200"/><img src="Screenshots/ss4.jpg" height="200"/><img src="Screenshots/ss5.jpg" height="200"/><img src="Screenshots/ss6.jpg" height="200"/><img src="Screenshots/ss7.jpg" height="200"/>
+<img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss1.jpg" height="200"/> <img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss2.jpg" height="200"/><img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss3.jpg" height="200"/><img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss4.jpg" height="200"/><img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss5.jpg" height="200"/><img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss6.jpg" height="200"/><img src="https://github.com/DaRkSoUl1690/MusicWiki/blob/master/screenshots/ss7.jpg" height="200"/>
 
 
 ## Why Do i prefer Volley library over Retrofit ??
