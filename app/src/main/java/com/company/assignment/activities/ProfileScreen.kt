@@ -1,39 +1,32 @@
-package com.company.assignment.Fragments
+package com.company.assignment.activities
 
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.company.assignment.activities.SecondScreen
-import com.company.assignment.adapters.TabLayoutAdapter
-import com.company.assignment.databinding.FragmentArtistBinding
+import com.company.assignment.databinding.ActivityProfileScreenBinding
 import com.company.assignment.models.MainModel
 import org.json.JSONArray
 import org.json.JSONObject
 
+class ProfileScreen : AppCompatActivity() {
 
-class ArtistFragment : Fragment() {
-    private var _binding: FragmentArtistBinding? = null
-    private val binding
-        get() = _binding
-    var artistList: ArrayList<MainModel> = ArrayList()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentArtistBinding.inflate(inflater, container, false)
-        val activity: SecondScreen? = activity as SecondScreen?
-        val myDataFromActivity: String = activity!!.getMyData()
-        callAlbumTagFunction(myDataFromActivity)
+    private lateinit var binding: ActivityProfileScreenBinding
 
-        return binding!!.root
+    private var albumList: ArrayList<MainModel> = ArrayList()
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityProfileScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportActionBar!!.hide()
+
+
     }
 
     private fun getSizeName(context: Context): String {
@@ -48,18 +41,21 @@ class ArtistFragment : Fragment() {
         }
     }
 
-    private fun callAlbumTagFunction(nameTag: String) {
-        val urlAlbumInfo: String =
-            "https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=${nameTag}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
+    fun profileDetailsInfo(artist: String) {
 
-        val requestQ = Volley.newRequestQueue(context)
+        val infoUrl =
+            "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
+
+        val requestQ = Volley.newRequestQueue(this@ProfileScreen)
 
         val request = JsonObjectRequest(
-            Request.Method.GET, urlAlbumInfo, null,
+            Request.Method.GET, infoUrl, null,
             { response ->
 
                 val json: JSONObject = response.get("albums") as JSONObject
                 val jsonArr: JSONArray = json.getJSONArray("album")
+                val listeners = json.getJSONObject("stats").getString("listeners")
+                val playcount = json.getJSONObject("stats").getString("playcount")
                 for (nameElement in 0.until(jsonArr.length())) {
                     val initialName = jsonArr.getJSONObject(nameElement)
 
@@ -76,22 +72,22 @@ class ArtistFragment : Fragment() {
                     for (index in 0.until(imageJson.length())) {
 
                         if (imageJson.getJSONObject(index)
-                                .getString("size") == getSizeName(requireContext())
+                                .getString("size") == getSizeName(this)
                         ) {
                             imageUrl = imageJson.getJSONObject(index).getString("#text")
                             break
                         }
 
                     }
-                    artistList.add(MainModel(albumName, artistName, imageUrl))
+                    albumList.add(MainModel(albumName, artistName, imageUrl))
 
 
                 }
-
-                val adapter = TabLayoutAdapter(artistList, 1)
-                binding!!.artistrv.adapter = adapter
             }
         ) { error -> Log.d("error", error.toString()) }
+
+
         requestQ.add(request)
+
     }
 }

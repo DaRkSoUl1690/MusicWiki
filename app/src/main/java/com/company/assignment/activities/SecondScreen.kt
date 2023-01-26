@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.company.assignment.Fragments.adapters.FragmentAdapter
+import com.company.assignment.adapters.FragmentAdapter
 import com.company.assignment.databinding.ActivitySecondScreenBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -32,7 +32,7 @@ class SecondScreen : AppCompatActivity() {
         tagName = intent.getStringExtra("nameTag").toString()
         callSummaryTagFunction(tagName)
 
-        
+
 
         TabLayoutMediator(
             binding!!.tabLayout, binding!!.viewPager

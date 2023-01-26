@@ -12,9 +12,9 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.company.assignment.activities.SecondScreen
-import com.company.assignment.adapters.AlbumAdapter
+import com.company.assignment.adapters.TabLayoutAdapter
 import com.company.assignment.databinding.FragmentAlbumBinding
-import com.company.assignment.models.Album.AlbumModel
+import com.company.assignment.models.MainModel
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -25,7 +25,7 @@ class AlbumFragment : Fragment() {
     private val binding
         get() = _binding
 
-    var albumList: ArrayList<AlbumModel> = ArrayList()
+    var albumList: ArrayList<MainModel> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -91,12 +91,12 @@ class AlbumFragment : Fragment() {
                         }
 
                     }
-                    albumList.add(AlbumModel(albumName, artistName, imageUrl))
+                    albumList.add(MainModel(albumName, artistName, imageUrl))
 
 
                 }
 
-                val adapter = AlbumAdapter(albumList, 0)
+                val adapter = TabLayoutAdapter(albumList, 0)
                 binding!!.albumrv.adapter = adapter
             }
         ) { error -> Log.d("error", error.toString()) }

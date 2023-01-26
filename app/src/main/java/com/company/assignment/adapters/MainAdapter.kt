@@ -12,7 +12,7 @@ import com.company.assignment.databinding.GenreViewHolderBinding
 @SuppressLint("StaticFieldLeak")
 private var context: Context? = null
 
-class FirstScreenAdapter(
+class MainAdapter(
     private var arrayList: ArrayList<String>
 ) : RecyclerView
 .Adapter<RecyclerView.ViewHolder>() {
@@ -27,7 +27,7 @@ class FirstScreenAdapter(
                 intent.putExtra("nameTag", name)
                 context!!.startActivity(intent)
             }
-            
+
         }
     }
 

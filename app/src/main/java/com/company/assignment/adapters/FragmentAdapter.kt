@@ -1,4 +1,4 @@
-package com.company.assignment.Fragments.adapters
+package com.company.assignment.adapters
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.company.assignment.Fragments.AlbumFragment
 import com.company.assignment.Fragments.ArtistFragment
-import com.company.assignment.Fragments.Trackfragment
+import com.company.assignment.Fragments.TrackFragment
 
 class FragmentAdapter(
     fragmentManager: FragmentManager,
@@ -15,12 +15,12 @@ class FragmentAdapter(
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     val NUM_PAGES = 3
-    
+
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> AlbumFragment()
             1 -> ArtistFragment()
-            2 -> Trackfragment()
+            2 -> TrackFragment()
             else -> AlbumFragment()
         }
     }
