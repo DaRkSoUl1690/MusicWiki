@@ -18,7 +18,9 @@ import com.company.assignment.models.MainModel
 import org.json.JSONArray
 import org.json.JSONObject
 
-
+/**
+ * This Fragment is used for Track TabLayout
+ */
 class TrackFragment : Fragment() {
     private var _binding: FragmentTrackfragmentBinding? = null
     private val binding

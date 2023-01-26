@@ -33,14 +33,12 @@ class TabAdapterViewHolder(private val binding: TablayoutviewholderBinding) :
 
                 context.startActivity(intent)
             }
-        } else {
+        } else if (tab == 1) {
             binding.tabviewholder.setOnClickListener {
                 val intent = Intent(context, ProfileScreen::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
                 intent.putExtra("artistName", artist)
-                intent.putExtra("titleName", title)
-                intent.putExtra("imageUrl", imageUrl)
 
                 context.startActivity(intent)
             }

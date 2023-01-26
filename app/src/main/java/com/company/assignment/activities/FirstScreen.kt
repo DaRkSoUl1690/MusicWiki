@@ -12,6 +12,9 @@ import com.company.assignment.databinding.ActivityFirstScreenBinding
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * This activity is initial Activity for our Application
+ */
 
 class FirstScreen : AppCompatActivity() {
     private val TAG = "NameError"

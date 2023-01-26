@@ -12,6 +12,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
 
+/**
+ * This activity is Second Activity for our Application
+ * where we display tabLayout and Genre Information
+ */
 class SecondScreen : AppCompatActivity() {
 
     private var binding: ActivitySecondScreenBinding? = null
@@ -32,8 +36,6 @@ class SecondScreen : AppCompatActivity() {
         tagName = intent.getStringExtra("nameTag").toString()
         callSummaryTagFunction(tagName)
 
-
-
         TabLayoutMediator(
             binding!!.tabLayout, binding!!.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
@@ -53,6 +55,10 @@ class SecondScreen : AppCompatActivity() {
         return tagName
     }
 
+    /**
+     * Created separate function for fetching Summary of genre
+     */
+    
     private fun callSummaryTagFunction(nameTag: String) {
         val urlInfo: String =
             "https://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=${nameTag}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"

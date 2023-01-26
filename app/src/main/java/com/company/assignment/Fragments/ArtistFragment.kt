@@ -18,7 +18,9 @@ import com.company.assignment.models.MainModel
 import org.json.JSONArray
 import org.json.JSONObject
 
-
+/**
+ * This Fragment is used for artist Tab Layout
+ */
 class ArtistFragment : Fragment() {
     private var _binding: FragmentArtistBinding? = null
     private val binding

@@ -1,7 +1,5 @@
 package com.company.assignment.activities
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.company.assignment.Utils.getSizeName
 import com.company.assignment.adapters.MainAdapter
 import com.company.assignment.adapters.TabLayoutAdapter
 import com.company.assignment.databinding.ActivityProfileScreenBinding
@@ -16,6 +15,7 @@ import com.company.assignment.models.MainModel
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.DecimalFormat
 
 class ProfileScreen : AppCompatActivity() {
 
@@ -29,92 +29,32 @@ class ProfileScreen : AppCompatActivity() {
         binding = ActivityProfileScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
-        profileDetailsInfo("coldplay")
-
+        profileDetailsInfo(intent.getStringExtra("artistName").toString())
+        topAlbumDetailsFromArtist(intent.getStringExtra("artistName").toString())
+        topTrackListFunction(intent.getStringExtra("artistName").toString())
     }
 
-    private fun getSizeName(context: Context): String {
-        var screenLayout: Int = context.resources.configuration.screenLayout
-        screenLayout = screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
-        return when (screenLayout) {
-            Configuration.SCREENLAYOUT_SIZE_SMALL -> "small"
-            Configuration.SCREENLAYOUT_SIZE_NORMAL -> "large"
-            Configuration.SCREENLAYOUT_SIZE_LARGE -> "extralarge"
-            4 -> "extralarge"
-            else -> "undefined"
+    fun prettyCount(number: Number): String? {
+        val suffix = charArrayOf(' ', 'k', 'M', 'B', 'T', 'P', 'E')
+        val numValue = number.toLong()
+        val value = Math.floor(Math.log10(numValue.toDouble())).toInt()
+        val base = value / 3
+        return if (value >= 3 && base < suffix.size) {
+            DecimalFormat("#0.0").format(
+                numValue / Math.pow(
+                    10.0,
+                    (base * 3).toDouble()
+                )
+            ) + suffix[base]
+        } else {
+            DecimalFormat("#,##0").format(numValue)
         }
     }
 
-    fun profileDetailsInfo(artist: String) {
-
-        val infoUrl =
-            "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
-
+    private fun topAlbumDetailsFromArtist(artist: String) {
         val topAlbumUrl =
             "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
-
         val requestQ = Volley.newRequestQueue(this@ProfileScreen)
-
-        val request = JsonObjectRequest(
-            Request.Method.GET, infoUrl, null,
-            { response ->
-
-                val json: JSONObject = response.get("artist") as JSONObject
-                val jsonArr: JSONArray = json.getJSONArray("image")
-                val listeners = json.getJSONObject("stats").getString("listeners")
-                val playcount = json.getJSONObject("stats").getString("playcount")
-                val summary = json.getJSONObject("bio").getString("summary")
-                val tagList = json.getJSONObject("tags").getJSONArray("tag")
-
-                for (nameElement in 0.until(tagList.length())) {
-
-                    val initialStep = tagList.getJSONObject(nameElement).getString("name")
-                    tagListName.add(initialStep)
-
-                }
-
-                val adapter = MainAdapter(tagListName)
-                val RecyclerViewLayoutManager = LinearLayoutManager(
-                    applicationContext
-                )
-                binding.coverRv.layoutManager = RecyclerViewLayoutManager
-                val horizontalLayout = LinearLayoutManager(
-                    this@ProfileScreen,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                binding.coverRv.layoutManager = horizontalLayout
-                binding.coverRv.adapter = adapter
-
-                var descString = ""
-                for (idx in summary.indices) {
-                    if (summary[idx] == '<') break
-                    descString += summary[idx]
-                }
-
-                binding.info.text = descString
-                binding.playCountText.text = playcount
-                binding.name.text = artist
-                binding.followerText.text = listeners
-
-                var imageUrl = ""
-                for (index in 0.until(jsonArr.length())) {
-
-                    if (jsonArr.getJSONObject(index)
-                            .getString("size") == getSizeName(this)
-                    ) {
-                        imageUrl = jsonArr.getJSONObject(index).getString("#text")
-                        break
-                    }
-                }
-                Picasso.get().load(imageUrl).into(binding.profilePic)
-
-            }
-        ) { error -> Log.d("error", error.toString()) }
-
-
-        requestQ.add(request)
-
         val albumRequest = JsonObjectRequest(
             Request.Method.GET, topAlbumUrl, null,
             { response ->
@@ -167,11 +107,83 @@ class ProfileScreen : AppCompatActivity() {
 
 
         requestQ.add(albumRequest)
-
-        topTrackListFunction(artist)
     }
 
-    fun topTrackListFunction(artist: String) {
+    /**
+     * Fetching details from URL of artist
+     */
+    private fun profileDetailsInfo(artist: String) {
+
+        val infoUrl =
+            "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
+
+        val requestQ = Volley.newRequestQueue(this@ProfileScreen)
+
+        val request = JsonObjectRequest(
+            Request.Method.GET, infoUrl, null,
+            { response ->
+
+                val json: JSONObject = response.get("artist") as JSONObject
+                val jsonArr: JSONArray = json.getJSONArray("image")
+                val listeners = json.getJSONObject("stats").getString("listeners")
+                val playcount = json.getJSONObject("stats").getString("playcount")
+                val summary = json.getJSONObject("bio").getString("summary")
+                val tagList = json.getJSONObject("tags").getJSONArray("tag")
+
+                for (nameElement in 0.until(tagList.length())) {
+
+                    val initialStep = tagList.getJSONObject(nameElement).getString("name")
+                    tagListName.add(initialStep)
+
+                }
+
+                val adapter = MainAdapter(tagListName)
+                val RecyclerViewLayoutManager = LinearLayoutManager(
+                    applicationContext
+                )
+                binding.coverRv.layoutManager = RecyclerViewLayoutManager
+                val horizontalLayout = LinearLayoutManager(
+                    this@ProfileScreen,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                binding.coverRv.layoutManager = horizontalLayout
+                binding.coverRv.adapter = adapter
+
+                var descString = ""
+                for (idx in summary.indices) {
+                    if (summary[idx] == '<') break
+                    descString += summary[idx]
+                }
+
+                binding.info.text = descString
+                binding.playCountText.text = prettyCount(Integer.parseInt(playcount))
+                binding.name.text = artist
+                binding.followerText.text = prettyCount(Integer.parseInt(listeners))
+
+                var imageUrl = ""
+                for (index in 0.until(jsonArr.length())) {
+
+                    if (jsonArr.getJSONObject(index)
+                            .getString("size") == getSizeName(this)
+                    ) {
+                        imageUrl = jsonArr.getJSONObject(index).getString("#text")
+                        break
+                    }
+                }
+                Picasso.get().load(imageUrl).into(binding.profilePic)
+
+            }
+        ) { error -> Log.d("error", error.toString()) }
+
+
+        requestQ.add(request)
+    }
+
+    /**
+     * Fetching top track list details from URL of artist
+     */
+    private fun topTrackListFunction(artist: String) {
 
         val topTrackUrl =
             "https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artist}&api_key=ab695c986ecbb3d5726f9f59040961f8&format=json"
@@ -209,7 +221,7 @@ class ProfileScreen : AppCompatActivity() {
 
                 }
 
-                val adapter = TabLayoutAdapter(mainList2, 0)
+                val adapter = TabLayoutAdapter(mainList2, 2)
                 val RecyclerViewLayoutManager = LinearLayoutManager(
                     applicationContext
                 )
