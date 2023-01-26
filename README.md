@@ -46,9 +46,9 @@ I want to express my sincere appreciation to GreedyGame for their task. As I wor
 
 I prefer Volley over Retrofit. 
 
-I do however have my reasons for this preference; I know the code for Volley well, it suits my coding/project structure style and you get image handling and lots of other things for free.
+I do however have my reasons for this preference; I know the code for Volley well and you get image handling and lots of other things for free.
 
- Retrofit on the other hand (feel free to correct me on this) is more about code abstraction on top of a HTTP client which for Retrofit is OkHttp. Retrofit aims to make it easier to consume RESTful web services where as the goal of Volley is to handle all your networking needs for Android specifically.
+ Retrofit on the other hand is more about code abstraction on top of a HTTP client which for Retrofit is OkHttp. Retrofit aims to make it easier to consume RESTful web services where as the goal of Volley is to handle all your networking needs for Android specifically.
 
 Volley definitely has a more elaborate and flexible caching mechanism. Glide leverages it to great effect for caching bitmaps.
 
