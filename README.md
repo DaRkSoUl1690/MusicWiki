@@ -9,11 +9,6 @@ thank you everyone for believing in me.
 
 
 
-
-## Acknowledgement
-
-
-I want to express my sincere appreciation to GreedyGame for their task. As I work on the assignment, I am able to further hone my talents. The Music Wiki is an excellent project to work on. Deep and significant for an Android developer are the concepts that were implemented in this project.
 ## Features
 
 - Explore about your favourite genre
