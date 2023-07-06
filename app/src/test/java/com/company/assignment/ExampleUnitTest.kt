@@ -1,5 +1,14 @@
 package com.company.assignment
 
+import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.company.assignment.adapters.MainAdapter
+import com.squareup.picasso.Picasso
+import org.json.JSONArray
+import org.json.JSONObject
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -14,4 +23,5 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+     
 }
