@@ -34,7 +34,13 @@ thank you everyone for believing in me.
 
 ## Screenshots
 
-<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss1.jpg" height="200"/> <img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss2.jpg" height="200"/><img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss3.jpg" height="200"/><img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss4.jpg" height="200"/><img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss5.jpg" height="200"/><img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss6.jpg" height="200"/><img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss7.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss1.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss2.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss3.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss4.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss5.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss6.jpg" height="200"/>
+<img src="https://github.com/vedant-dev0718/MusicWiki/blob/master/screenshots/ss7.jpg" height="200"/>
 
 
 ## Why Do i used Volley library over Retrofit ??
